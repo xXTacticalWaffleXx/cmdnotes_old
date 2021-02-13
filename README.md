@@ -5,11 +5,7 @@ cmdnotes is a barebones command line notes app, at present it only saves notes u
 commands
 
 -list
-lists all your notes with there numbersrs, example output:
-
-1 buy milk
-2 rust door code: 0591
-3 google.com
+lists all your notes with there numbers, example output:
 
 -see
 -see is how you look at specific notes, after running this command it will ask you for a number and then print the note the number corresponds too
