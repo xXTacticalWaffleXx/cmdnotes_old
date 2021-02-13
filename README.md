@@ -1,5 +1,4 @@
 # cmdnotes
-cmdnotes alpha 1.2
 cmdnotes is a barebones command line notes app, at present it only saves notes until you turn your computer off.
 ========================================================================================================================================================================================
 
@@ -17,3 +16,5 @@ lists all your notes with there numbersrs, example output:
 
 -exit
 exits the program with code 0, will save notes to file in future revisions
+
+at present cmdnotes is at version alpha 1.2
