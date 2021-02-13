@@ -1,5 +1,5 @@
 # cmdnotes
-cmdnotes is a barebones command line notes app, at present it only saves notes until you turn your computer off.
+cmdnotes is a barebones command line notes app, at present it only saves notes until you close the program.
 ========================================================================================================================================================================================
 
 commands
