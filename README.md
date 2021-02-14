@@ -10,4 +10,6 @@ commands
 
 -exit exits the program with code 0, will save notes to file in future revisions
 
-at present cmdnotes is at version alpha 1.2
+-mknote lets you add a note, normally just typing will do nothing
+
+-delete lets you delete your notes
