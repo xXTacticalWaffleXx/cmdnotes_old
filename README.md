@@ -13,3 +13,6 @@ commands
 -mknote lets you add a note, normally just typing will do nothing
 
 -delete lets you delete your notes
+
+At present you have to compile the program yourself. to do this either clone the repository into visual studio 2017 or copy the cpp file into your own ide
+and compile it there.
