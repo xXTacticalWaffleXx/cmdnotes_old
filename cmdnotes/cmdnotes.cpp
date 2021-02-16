@@ -2,10 +2,11 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include <fstream>
 
 using namespace std;
 
-// this is the source code for cmdnotes alpha 1.3, it will almost certainly be awful, i apologise for the pain reading this code may cause.
+// this is the source code for cmdnotes alpha v2, it will almost certainly be awful, i apologise for the pain reading this code may cause.
 
 int main()
 {
@@ -16,7 +17,21 @@ int main()
 	string NoteToDump;
 	int PrintNote; //also used for the delete command
 
-	cout << "welcome to cmdnotes alpha v1.3 <3\n";
+	// imports any notes the user has saved in prior sessions
+	ifstream in("cmdnotes_data.txt");
+	string str;
+	// Read the next line from File untill it reaches the end.
+	while (getline(in, str))
+	{
+		// Line contains string of length > 0 then save it in vector
+		if (str.size() > 0)
+			Notes.push_back(str);
+	}
+	in.close();
+	SaveNoteOnLine = Notes.size();
+	
+	// the main code that the user interacts with
+	cout << "welcome to cmdnotes alpha v2 <3\n";
 	while (true) {
 		getline(cin, input);
 		if (input == "-list") {
@@ -48,6 +63,11 @@ int main()
 			Notes.push_back(input);
 			cout << "saved on line " << SaveNoteOnLine << endl;
 			SaveNoteOnLine++;
+		}
+		else if (input == "-save") {
+			ofstream outFile("cmdnotes_data.txt"); 
+			for (const auto &e : Notes) outFile << e << "\n";
+			cout << "done, you will have to exit this program to actually save your file\n"; // -save only tells the program what to save when it exits, it doesnt do the saving there and then
 		}
 		else {
 			//do nothing
