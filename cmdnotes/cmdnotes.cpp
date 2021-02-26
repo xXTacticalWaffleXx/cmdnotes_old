@@ -31,7 +31,7 @@ int main()
 	SaveNoteOnLine = Notes.size();
 	
 	// the main code that the user interacts with
-	cout << "welcome to cmdnotes alpha v2 <3\n";
+	cout << "welcome to cmdnotes beta v1 <3\ntype -help for a list of commands\n";
 	while (true) {
 		getline(cin, input);
 		if (input == "-list") {
@@ -65,9 +65,14 @@ int main()
 			SaveNoteOnLine++;
 		}
 		else if (input == "-save") {
+
 			ofstream outFile("cmdnotes_data.txt"); 
 			for (const auto &e : Notes) outFile << e << "\n";
 			cout << "done, you will have to exit this program to actually save your file\n"; // -save only tells the program what to save when it exits, it doesnt do the saving there and then
+		}
+		else if (input == "-help") {
+			// lists the commands
+			cout << "-exit: closes the program" << endl << "-see: lets you print a specific note" << endl << "-delete lets you delete a note" << endl << "-mknote: lets you make a new note" << endl << "-save: saves your notes to a file (please keep in mind this doesnt keep the notes safe from your computer crashing, to do that please restart the program)" << endl;
 		}
 		else {
 			//do nothing
