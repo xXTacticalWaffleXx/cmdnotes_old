@@ -6,13 +6,13 @@
 
 using namespace std;
 
-// this is the source code for cmdnotes alpha v2, it will almost certainly be awful, i apologise for the pain reading this code may cause.
+// this is the source code for cmdnotes beta v2, it will almost certainly be awful, i apologise for the pain reading this code may cause.
 
 int main()
 {
 	string input;
 	vector <string> Notes;
-	int SaveNoteOnLine = 0;
+	int SaveNoteOnLine = 1;
 	string output; //a var needed for specific situations, not used for all output
 	string NoteToDump;
 	int PrintNote; //also used for the delete command
@@ -29,14 +29,14 @@ int main()
 	}
 	in.close();
 	SaveNoteOnLine = Notes.size();
-	
+
 	// the main code that the user interacts with
-	cout << "welcome to cmdnotes beta v1 <3\ntype -help for a list of commands\n";
+	cout << "welcome to cmdnotes beta v2 <3\ntype -help for a list of commands\n";
 	while (true) {
 		getline(cin, input);
 		if (input == "-list") {
 			for (int i = 0; i < SaveNoteOnLine; i++) {
-				cout << i << " " << Notes.at(i) << endl;
+				cout << i + 1 << " " << Notes.at(i) << endl;
 			}
 		}
 		else if (input == "-exit") {
@@ -45,7 +45,7 @@ int main()
 		else if (input == "-see") {
 			cout << "what note do you want\n";
 			cin >> PrintNote;
-			cout << Notes.at(PrintNote) << endl;
+			cout << Notes.at(PrintNote - 1)<< endl;
 		}
 		else if (input == "-delete") {
 			cout << "what note do you want to delete, type -1 to cancel\n";
@@ -53,20 +53,23 @@ int main()
 			if (PrintNote == -1) {
 				//does nothing
 			}
+			else if (PrintNote > SaveNoteOnLine) {
+				cout << "Sorry! that note doesnt exist\n";
+			}
 			else {
-				Notes.erase(Notes.begin() + PrintNote);
+				Notes.erase(Notes.begin() + (PrintNote - 1));
 				SaveNoteOnLine = SaveNoteOnLine - 1;
 			}
 		}
-		else if (input == "-mknote"){
+		else if (input == "-mknote") {
 			getline(cin, input);
 			Notes.push_back(input);
-			cout << "saved on line " << SaveNoteOnLine << endl;
+			cout << "saved on line " << SaveNoteOnLine + 1 << endl;
 			SaveNoteOnLine++;
 		}
 		else if (input == "-save") {
 
-			ofstream outFile("cmdnotes_data.txt"); 
+			ofstream outFile("cmdnotes_data.txt");
 			for (const auto &e : Notes) outFile << e << "\n";
 			cout << "done, you will have to exit this program to actually save your file\n"; // -save only tells the program what to save when it exits, it doesnt do the saving there and then
 		}
