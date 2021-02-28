@@ -14,9 +14,12 @@ commands
 
 -delete lets you delete your notes
 
--save lets you save your notes to a file that the program will import the next time you start it (keep in mind you need to close the program to actually save your changes)
-
 -help explains all the commands
 
-At present you have to compile the program yourself. to do this either clone the repository into visual studio 2017 or 2019 or copy the cpp file into your own ide
-and compile it there.
+-transaction starts a SQL style transaction
+
+-commit saves the changes made in a transaction to file
+
+-rollback reverts any changes mad
+
+to compile this program from source clone the repo into visual studio 2017 or higher and compile
