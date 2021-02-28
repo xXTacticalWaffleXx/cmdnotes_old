@@ -6,10 +6,12 @@
 
 using namespace std;
 
-// this is the source code for cmdnotes beta v2, it will almost certainly be awful, i apologise for the pain reading this code may cause.
+// this is the source code for cmdnotes beta v3, it will almost certainly be awful, i apologise for the pain reading this code may cause.
+// this program and code is under the unlicence and therefore in the public domain
 
 int main()
 {
+	//sets up varibles that the program needs
 	string input;
 	vector <string> Notes;
 	int SaveNoteOnLine = 1;
@@ -31,7 +33,7 @@ int main()
 	SaveNoteOnLine = Notes.size();
 
 	// the main code that the user interacts with
-	cout << "welcome to cmdnotes beta v2 <3\ntype -help for a list of commands\n";
+	cout << "welcome to cmdnotes beta v3 <3\ntype -help for a list of commands\n";
 	while (true) {
 		getline(cin, input);
 		if (input == "-list") {
@@ -45,7 +47,12 @@ int main()
 		else if (input == "-see") {
 			cout << "what note do you want\n";
 			cin >> PrintNote;
-			cout << Notes.at(PrintNote - 1)<< endl;
+			if (PrintNote > SaveNoteOnLine) {
+				cout << "Sorry! that note doesnt exist\n";
+			}
+			else {
+				cout << Notes.at(PrintNote - 1) << endl;
+			}
 		}
 		else if (input == "-delete") {
 			cout << "what note do you want to delete, type -1 to cancel\n";
@@ -60,18 +67,22 @@ int main()
 				Notes.erase(Notes.begin() + (PrintNote - 1));
 				SaveNoteOnLine = SaveNoteOnLine - 1;
 			}
+			// saves the vector to the file
+			ofstream outFile("cmdnotes_data.txt");
+			for (const auto &e : Notes) outFile << e << "\n";
+			cout << "vector saved to file\n";
+			outFile.close();
 		}
 		else if (input == "-mknote") {
 			getline(cin, input);
 			Notes.push_back(input);
 			cout << "saved on line " << SaveNoteOnLine + 1 << endl;
 			SaveNoteOnLine++;
-		}
-		else if (input == "-save") {
-
+			//save the vector to file
 			ofstream outFile("cmdnotes_data.txt");
 			for (const auto &e : Notes) outFile << e << "\n";
-			cout << "done, you will have to exit this program to actually save your file\n"; // -save only tells the program what to save when it exits, it doesnt do the saving there and then
+			cout << "vector saved to file\n";
+			outFile.close();
 		}
 		else if (input == "-help") {
 			// lists the commands
