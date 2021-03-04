@@ -34,8 +34,9 @@ int main()
 	SaveNoteOnLine = Notes.size();
 
 	// the main code that the user interacts with
-	cout << "welcome to cmdnotes beta v5.1 <3\ntype -help for a list of commands\n";
+	cout << "welcome to cmdnotes beta v6 <3\ntype -help for a list of commands\n";
 	while (true) {
+		startofcode:
 		getline(cin, input);
 		if (input == "-list") {
 			for (int i = 0; i < SaveNoteOnLine; i++) {
@@ -66,7 +67,15 @@ int main()
 		}
 		else if (input == "-see") {
 			cout << "what note do you want\n";
-			cin >> PrintNote;
+			cin >> input;
+			for (int i = 0; input.size() > i; i++) {
+				if (isdigit(input.at(i)) == false) {
+					cout << "-see only accepts an integer as an input\n";
+					goto startofcode;
+				}
+			}
+			stringstream ss(input);
+			ss >> PrintNote;
 			if (PrintNote > SaveNoteOnLine) {
 				cout << "Sorry! that note doesnt exist\n";
 			}
@@ -76,7 +85,15 @@ int main()
 		}
 		else if (input == "-delete") {
 			cout << "what note do you want to delete, type -1 to cancel\n";
-			cin >> PrintNote;
+			cin >> input;
+			for (int i = 0; input.size() > i; i++) {
+				if (isdigit(input.at(i)) == false) {
+					cout << "-delete only accepts an integer as an input\n";
+					goto startofcode;
+				}
+			}
+			stringstream ss(input);
+			ss >> PrintNote;
 			if (PrintNote == -1) {
 				//does nothing
 			}
@@ -86,14 +103,15 @@ int main()
 			else {
 				Notes.erase(Notes.begin() + (PrintNote - 1));
 				SaveNoteOnLine = SaveNoteOnLine - 1;
+				// saves the vector to the file
+				if (rollback == false) {
+					ofstream outFile("cmdnotes_data.txt");
+					for (const auto &e : Notes) outFile << e << "\n";
+					cout << "vector saved to file\n";
+					outFile.close();
+				}
 			}
-			// saves the vector to the file
-			if (rollback == false) {
-				ofstream outFile("cmdnotes_data.txt");
-				for (const auto &e : Notes) outFile << e << "\n";
-				cout << "vector saved to file\n";
-				outFile.close();
-			}
+
 
 		}
 		else if (input == "-mknote") {
@@ -113,7 +131,7 @@ int main()
 			// lists the commands
 			cout << "-exit: closes the program" << endl;
 			cout << "-see: lets you print a specific note" << endl;
-			cout << "-delete lets you delete a note" << endl; 
+			cout << "-delete lets you delete a note" << endl;
 			cout << "-mknote: lets you make a new note" << endl;
 			cout << "-transaction: starts a transaction allowing you to rollback changes" << endl;
 			cout << "-commit: saves your changes in a transaction to file" << endl;
@@ -130,7 +148,7 @@ int main()
 		}
 		else if (input == "-commit") {
 			if (rollback == false) {
-				cout << "no transaction in progress\n"; 
+				cout << "no transaction in progress\n";
 			}
 			else {
 				// saves the vector to a file
