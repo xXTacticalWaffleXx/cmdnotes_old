@@ -6,7 +6,7 @@
 
 using namespace std;
 
-// this is the source code for cmdnotes beta v5, it will almost certainly be awful, i apologise for the pain reading this code may cause.
+// this is the source code for cmdnotes beta v5.1, it will almost certainly be awful, i apologise for the pain reading this code may cause.
 // this program and code is under the unlicence and therefore in the public domain, a copy of the unlicence can be found at unlicence.org
 
 int main()
@@ -34,7 +34,7 @@ int main()
 	SaveNoteOnLine = Notes.size();
 
 	// the main code that the user interacts with
-	cout << "welcome to cmdnotes beta v5 <3\ntype -help for a list of commands\n";
+	cout << "welcome to cmdnotes beta v5.1 <3\ntype -help for a list of commands\n";
 	while (true) {
 		getline(cin, input);
 		if (input == "-list") {
@@ -44,7 +44,7 @@ int main()
 		}
 		else if (input == "-exit") {
 			if (rollback == true) {
-				cout << "you still have a transaction open, would you like to commit your changes\n(Y/N)";
+				cout << "you still have a transaction open, would you like to commit your changes\n(Y/N)\n";
 				cin >> input;
 				if (input == "y" || input == "Y") {
 					// saves the vector to file
@@ -117,7 +117,7 @@ int main()
 			cout << "-mknote: lets you make a new note" << endl;
 			cout << "-transaction: starts a transaction allowing you to rollback changes" << endl;
 			cout << "-commit: saves your changes in a transaction to file" << endl;
-			cout << "-rollback: reverts your changes";
+			cout << "-rollback: reverts your changes" << endl;
 		}
 		else if (input == "-transaction") {
 			if (rollback == true) {
