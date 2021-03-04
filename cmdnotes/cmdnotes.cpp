@@ -6,8 +6,8 @@
 
 using namespace std;
 
-// this is the source code for cmdnotes beta v4, it will almost certainly be awful, i apologise for the pain reading this code may cause.
-// this program and code is under the unlicence and therefore in the public domain
+// this is the source code for cmdnotes beta v5, it will almost certainly be awful, i apologise for the pain reading this code may cause.
+// this program and code is under the unlicence and therefore in the public domain, a copy of the unlicence can be found at unlicence.org
 
 int main()
 {
@@ -34,7 +34,7 @@ int main()
 	SaveNoteOnLine = Notes.size();
 
 	// the main code that the user interacts with
-	cout << "welcome to cmdnotes beta v4 <3\ntype -help for a list of commands\n";
+	cout << "welcome to cmdnotes beta v5 <3\ntype -help for a list of commands\n";
 	while (true) {
 		getline(cin, input);
 		if (input == "-list") {
@@ -43,7 +43,26 @@ int main()
 			}
 		}
 		else if (input == "-exit") {
-			return 0;
+			if (rollback == true) {
+				cout << "you still have a transaction open, would you like to commit your changes\n(Y/N)";
+				cin >> input;
+				if (input == "y" || input == "Y") {
+					// saves the vector to file
+					ofstream outFile("cmdnotes_data.txt");
+					for (const auto &e : Notes) outFile << e << "\n";
+					cout << "vector saved to file\n";
+					outFile.close();
+					return 0;
+				} if (input == "n" || input == "N") {
+					return 0;
+				}
+				else {
+					cout << "invalid input\n";
+				}
+			}
+			else {
+				return 0;
+			}
 		}
 		else if (input == "-see") {
 			cout << "what note do you want\n";
@@ -119,8 +138,7 @@ int main()
 				for (const auto &e : Notes) outFile << e << "\n";
 				cout << "vector saved to file\n";
 				outFile.close();
-				rollback 
-= false;
+				rollback = false;
 			}
 		}
 		else if (input == "-rollback") {
