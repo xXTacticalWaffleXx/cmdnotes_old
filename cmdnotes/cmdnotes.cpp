@@ -6,7 +6,7 @@
 
 using namespace std;
 
-// this is the source code for cmdnotes beta v6.1, it will almost certainly be awful, i apologise for the pain reading this code may cause.
+// this is the source code for cmdnotes beta v7, it will almost certainly be awful, i apologise for the pain reading this code may cause.
 // this program and code is under the unlicence and therefore in the public domain, a copy of the unlicence can be found at unlicence.org
 
 int main()
@@ -34,7 +34,7 @@ int main()
 	SaveNoteOnLine = Notes.size();
 
 	// the main code that the user interacts with
-	cout << "welcome to cmdnotes beta v6.1 <3\ntype -help for a list of commands\n";
+	cout << "welcome to cmdnotes beta v7 <3\ntype -help for a list of commands\n";
 	while (true) {
 		startofcode:
 		getline(cin, input);
@@ -137,6 +137,8 @@ int main()
 			cout << "-transaction: starts a transaction allowing you to rollback changes" << endl;
 			cout << "-commit: saves your changes in a transaction to file" << endl;
 			cout << "-rollback: reverts your changes" << endl;
+			cout << "-amend: lets you overwrite an existing note" << endl;
+			cout << "this program is released under the unlicence, please see unlicense.org for more info\n";
 		}
 		else if (input == "-transaction") {
 			if (rollback == true) {
@@ -184,6 +186,41 @@ int main()
 				rollback = false;
 			}
 		}
+		else if (input == "-amend") {
+		//allows the user to write to a position in the vector they have already written to
+		cout << "what note do you want to edit\n";
+		cin >> input;
+		stringstream ss(input);
+		ss >> PrintNote;
+		//checks the users input to make sure its an integer
+		for (int i = 0; input.size() > i; i++) {
+			if (isdigit(input.at(i)) == false) {
+				cout << "-ammend only accepts an integer as an input\n";
+				goto startofcode;
+			}
+		}
+		if (PrintNote > SaveNoteOnLine) {
+			cout << "Sorry! that note doesnt exist\n";
+			goto startofcode;
+		}
+		// shows the user the contents of the note they want to edit
+		else {
+			cout << Notes.at(PrintNote - 1) << endl;
+		}
+		// lets the user overwrite the note
+		cout << "please type what the note should be\n";
+		cin >> input;
+		Notes.at(PrintNote - 1) = input;
+		cout << "note saved to vector\n";
+		//saves the vector to file
+		if (rollback == false) {
+			ofstream outFile("cmdnotes_data.txt");
+			for (const auto& e : Notes) outFile << e << "\n";
+			cout << "vector saved to file\n";
+			outFile.close();
+		}
+		//todo: make it so that the note is shown in the users input bar and they can edit it right there instead of just overwriting the note.
+			}
 		else {
 			//do nothing
 		}

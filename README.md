@@ -14,12 +14,14 @@ commands
 
 -delete lets you delete your notes
 
--help explains all the commands
+-help explains all the commands and gives licence info
 
 -transaction starts a SQL style transaction
 
 -commit saves the changes made in a transaction to file
 
--rollback reverts any changes mad
+-rollback reverts any changes made
+
+-amend allows you to overwrite a previously saved note
 
 to compile this program from source clone the repo into visual studio 2017 or higher and compile
