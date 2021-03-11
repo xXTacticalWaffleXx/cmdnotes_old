@@ -8,7 +8,7 @@ commands
 
 -see is how you look at specific notes, after running this command it will ask you for a number and then print the note the number corresponds too
 
--exit exits the program with code 0, will save notes to file in future revisions
+-exit exits the program with code 0
 
 -mknote lets you add a note, normally just typing will do nothing
 
@@ -24,4 +24,4 @@ commands
 
 -amend allows you to overwrite a previously saved note
 
-to compile this program from source clone the repo into visual studio 2017 or higher and compile
+to compile this repo from source you just grab the cmdnotes.cpp file from the repo and paste it into your ide
