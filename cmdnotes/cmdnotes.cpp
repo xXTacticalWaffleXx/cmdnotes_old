@@ -6,7 +6,7 @@
 
 using namespace std;
 
-// this is the source code for cmdnotes beta v7, it will almost certainly be awful, i apologise for the pain reading this code may cause.
+// this is the source code for cmdnotes beta v7.1, it will almost certainly be awful, i apologise for the pain reading this code may cause.
 // this program and code is under the unlicence and therefore in the public domain, a copy of the unlicence can be found at unlicence.org
 
 int main()
@@ -34,7 +34,7 @@ int main()
 	SaveNoteOnLine = Notes.size();
 
 	// the main code that the user interacts with
-	cout << "welcome to cmdnotes beta v7 <3\ntype -help for a list of commands\n";
+	cout << "welcome to cmdnotes beta v7.1 <3\ntype -help for a list of commands\n";
 	while (true) {
 		startofcode:
 		getline(cin, input);
@@ -47,6 +47,7 @@ int main()
 			if (rollback == true) {
 				cout << "you still have a transaction open, would you like to commit your changes\n(Y/N)\n";
 				cin >> input;
+				cin.ignore();
 				if (input == "y" || input == "Y") {
 					// saves the vector to file
 					ofstream outFile("cmdnotes_data.txt");
@@ -68,6 +69,7 @@ int main()
 		else if (input == "-see") {
 			cout << "what note do you want\n";
 			cin >> input;
+			cin.ignore();
 			for (int i = 0; input.size() > i; i++) {
 				if (isdigit(input.at(i)) == false) {
 					cout << "-see only accepts an integer as an input\n";
@@ -86,6 +88,7 @@ int main()
 		else if (input == "-delete") {
 			cout << "what note do you want to delete, type -1 to cancel\n";
 			cin >> input;
+			cin.ignore();
 			for (int i = 0; input.size() > i; i++) {
 				if (isdigit(input.at(i)) == false) {
 					cout << "-delete only accepts an integer as an input\n";
@@ -190,12 +193,13 @@ int main()
 		//allows the user to write to a position in the vector they have already written to
 		cout << "what note do you want to edit\n";
 		cin >> input;
+		cin.ignore();
 		stringstream ss(input);
 		ss >> PrintNote;
 		//checks the users input to make sure its an integer
 		for (int i = 0; input.size() > i; i++) {
 			if (isdigit(input.at(i)) == false) {
-				cout << "-ammend only accepts an integer as an input\n";
+				cout << "-amend only accepts an integer as an input\n";
 				goto startofcode;
 			}
 		}
@@ -209,7 +213,7 @@ int main()
 		}
 		// lets the user overwrite the note
 		cout << "please type what the note should be\n";
-		cin >> input;
+		getline(cin, input);
 		Notes.at(PrintNote - 1) = input;
 		cout << "note saved to vector\n";
 		//saves the vector to file
